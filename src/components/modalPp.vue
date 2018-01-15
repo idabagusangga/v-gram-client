@@ -16,7 +16,7 @@
                 </div>
                 <div class="form-group">
                   <label for="exampleInputFile">File input</label>
-                  <input type="file" class="form-control-file" id="inputFile" aria-describedby="fileHelp" @change="readURL">
+                  <input type="file" class="form-control-file" id="inputFile2" aria-describedby="fileHelp" @change="readURL">
                   <small id="fileHelp" class="form-text text-muted">This is some placeholder block-level help text for the above input. It's a bit lighter and easily wraps to a new line.</small>
                 </div>
             </div>
@@ -34,21 +34,22 @@ export default {
     data : function(){
         return {
             preUpload : {},
-            fotoBaru : ''
+            fotoBaru : '',
+            image : null
         }
     },
     methods : {
         multer(){
         let token = localStorage.getItem('token')
-        let data = new FormData();
-        data.append('caption',this.preUpload.caption)
-        data.append('image',document.getElementById('inputFile').files[0])
-        data.append('token',token)
-        data.append('uploadDate',new Date())
+        let data1 = new FormData()
+        data1.append('caption',this.preUpload.caption)
+        data1.append('image',document.getElementById('inputFile2').files[0])
+        data1.append('token',token)
+        data1.append('uploadDate',new Date())
         
-        console.log(data);
+        console.log(document.getElementById('inputFile2').files[0]);
     
-        axios.post('http://localhost:3000/pictures/addpp',data)
+        axios.post('http://localhost:3000/pictures/addpp',data1)
         .then(response=>{
             // this.fotoBaru = response.data.data.album[response.data.data.album.length-1]
             // this.$emit('fotoBaruNih',this.fotoBaru)
@@ -66,6 +67,7 @@ export default {
         return;
         console.log('ini read url -------->',files);
         this.createImage(files[0]);
+        this.image = files[0]
     },
     createImage(file) {
         var image = new Image();

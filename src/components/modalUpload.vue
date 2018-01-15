@@ -46,7 +46,7 @@ export default {
         data.append('token',token)
         data.append('uploadDate',new Date())
         
-        console.log(data);
+        console.log(document.getElementById('inputFile').files[0]);
     
         axios.post('http://localhost:3000/pictures/add',data)
         .then(response=>{
